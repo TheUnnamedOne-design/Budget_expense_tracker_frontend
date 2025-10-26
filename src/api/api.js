@@ -1,6 +1,8 @@
-const backendUrl = 'http://localhost:4000'; // Adjust if backend runs on different host/port
+const backendUrl = import.meta.env.VITE_API_URL || 'http://localhost:4000';
 
+console.log('🔗 Backend URL:', backendUrl);
 /* AUTH */
+
 
 export async function signup({ name, email, password }) {
   const res = await fetch(`${backendUrl}/apiauthsignup`, {
@@ -111,13 +113,11 @@ export async function updateProfile(id, data) {
 
 /* REPORTS */
 
-// Renamed the function to summary for frontend compatibility
 export async function summary(userId) {
   const res = await fetch(`${backendUrl}/apireports?userId=${userId}`);
   return await res.json();
 }
 
-// Kept getReport as alias if needed (optional)
 export async function getReport(userId) {
   return summary(userId);
 }
